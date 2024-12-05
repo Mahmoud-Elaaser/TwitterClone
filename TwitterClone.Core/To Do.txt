@@ -1,0 +1,6 @@
+﻿
+
+
+
+
+Learning MediatR, Redis, ... and applying them on this project ISA :)
