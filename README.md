@@ -13,15 +13,18 @@ The Twitter Clone API is a backend application built using **ASP.NET Core** that
 - **Role-Based Access Control**: Supports **Admin** and **User** roles for managing permissions.
 - **Password Management**: Change password functionality.
 - **User Profiles**: Update bio, email, and profile picture.
-- **Mute/Block Users**: Users can mute or block others to tailor their experience.
 
 ### Post Management
-- Full CRUD operations for posts, including timestamps and user associations.
+- Full CRUD operations for tweets and quotes, including timestamps and user associations.
 
 ### Social Features
-- **Follow/Unfollow Users**: Connect with others on the platform.
-- **Likes**: Like tweets.
-- **Comments**: Add comments to tweets.
+- **Follow/Unfollow Users**: Connect with other users by following or unfollowing them.
+- **Mute/Block Users**: Customize your experience by muting or blocking specific users.
+- **Create Tweets**: Share your thoughts and updates with others on the platform.
+- **Quote Tweets**: Add your commentary while sharing another user's tweet.
+- **Retweet**: Share existing tweets with your followers to amplify them.
+- **Likes**: Express appreciation or agreement by liking tweets.
+- **Comments**: Engage in discussions by adding comments to tweets.
 
 ### Notifications
 - Notifications for:
