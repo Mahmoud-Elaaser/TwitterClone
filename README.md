@@ -1,7 +1,6 @@
 # Twitter Clone API
 
-## Description
-The Twitter Clone API is a backend application built using **ASP.NET Core** that replicates core features of a social media platform like Twitter. The project is designed with clean architecture principles, ensuring scalability, maintainability, and performance.
+Twitter Clone API is a backend application built using **ASP.NET Core** that replicates core features of a social media platform like Twitter. The project is designed with clean architecture principles, ensuring scalability, maintainability, and performance.
 
 ---
 
