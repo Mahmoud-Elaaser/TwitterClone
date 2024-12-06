@@ -97,7 +97,20 @@ Make sure you have the following installed:
 4. **Restore packages:**
    ```bash
    dotnet restore
-5. **Apply migrations then run**
+5. **Apply migrations**
+   ```bash
+   dotnet ef database update
+6. **Run**
+   ```bash
+   dotnet run
+
+---
+
+### Screenshot
+
+Here is a full screenshot of the project:
+
+![Screenshot](https://github.com/Mahmoud-Elaaser/TwitterClone/blob/master/TwitterClone.png)
    
    
  
