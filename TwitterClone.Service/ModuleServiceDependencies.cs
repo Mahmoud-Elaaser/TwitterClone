@@ -21,7 +21,7 @@ namespace TwitterClone.Service
             services.AddScoped<ILikeService, LikeService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<INotificationService, NotificationService>();
-
+            services.AddTransient<IEmailService, EmailService>();
 
             /// Register automapper
             services.AddAutoMapper(Assembly.GetExecutingAssembly());

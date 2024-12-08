@@ -5,7 +5,7 @@ namespace TwitterClone.Service.DTOs.AuthenticationDto
     public class ResetPasswordDto
     {
         [Required]
-        public string Token { get; set; }
+        public string Code { get; set; }
         [Required]
         public string Email { get; set; }
 

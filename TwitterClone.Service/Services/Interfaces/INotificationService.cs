@@ -10,6 +10,10 @@ namespace TwitterClone.Service.Services.Interfaces
         Task<ResponseDto> GetUserNotificationsAsync(int userId);
         Task<ResponseDto> getAllNotificationsAsync();
         Task<ResponseDto> MarkAllAsReadAsync(int userId);
+
+        Task<ResponseDto> MarkAsReadAsync(int notificationId);
+        Task<ResponseDto> DeleteNotificationById(int notificationId);
+        Task<ResponseDto> GetUnreadNotifications(int userId);
     }
 
 }

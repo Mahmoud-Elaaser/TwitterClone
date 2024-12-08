@@ -13,13 +13,12 @@ namespace TwitterClone.Api.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAuthService _authService;
-
         public AccountController(IAuthService authService)
         {
             _authService = authService;
         }
 
-        [HttpPost("register/user")]
+        [HttpPost("register-user")]
         [AllowAnonymous]
         public async Task<IActionResult> RegisterUser([FromBody] RegisterDto model)
         {
@@ -30,7 +29,7 @@ namespace TwitterClone.Api.Controllers
             return Ok(result);
         }
 
-        [HttpPost("register/admin")]
+        [HttpPost("register-admin")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> RegisterAdmin([FromBody] RegisterDto model)
         {
@@ -102,18 +101,6 @@ namespace TwitterClone.Api.Controllers
             return Ok(result);
         }
 
-        //[HttpPost("generate-token-for-reset-pass")]
-        //public async Task<IActionResult> GeneratePasswordResetToken([FromBody] string email)
-        //{
-        //    if (string.IsNullOrEmpty(email))
-        //    {
-        //        return BadRequest("Email is required.");
-        //    }
-
-        //    var token = await _authService.GeneratePasswordResetTokenAsync(email);
-        //    return Ok(new { Token = token });
-        //}
-
 
         [HttpPost("logout")]
         public IActionResult Logout()
@@ -122,14 +109,29 @@ namespace TwitterClone.Api.Controllers
             return Ok(response);
         }
 
+
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDto dto)
+        {
+            var response = await _authService.ForegotPassword(dto);
+            if (!response.IsSucceeded)
+                return BadRequest(new ApiResponse(response.Status, response.Message));
+            return Ok(response);
+        }
+
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto dto)
+        {
+            var response = await _authService.RessetPassword(dto);
+            if (!response.IsSucceeded)
+                return BadRequest(new ApiResponse(response.Status, response.Message));
+            return Ok(ModelState);
+        }
+
         /// TODO:
         /// 1. refresh token
         /// 2. Confirm email
         /// 3. resend confirm email
-        /// 4. reset-passwod
-        /// 5. forgot passwor
-        /// 6. manage 2FA
-
 
 
     }

@@ -3,7 +3,6 @@ using TwitterClone.Data.Entities;
 using TwitterClone.Infrastructure.Repositories.Interfaces;
 using TwitterClone.Service.DTOs;
 using TwitterClone.Service.DTOs.CommentDto;
-using TwitterClone.Service.DTOs.QuoteDto;
 using TwitterClone.Service.Services.Interfaces;
 
 namespace TwitterClone.Service.Services.Implementations
@@ -103,31 +102,7 @@ namespace TwitterClone.Service.Services.Implementations
             };
         }
 
-        public async Task<ResponseDto> UpdateQuoteasync(int id, CreateOrUpdateQuoteDto updateQuoteDto)
-        {
-            var existingQuote = await _unitOfWork.Repository<Quote>().GetByIdAsync(id);
-            if (existingQuote == null)
-            {
-                return new ResponseDto
-                {
-                    IsSucceeded = false,
-                    Status = 404,
-                    Message = "Quote not found"
-                };
-            }
 
-            _mapper.Map(updateQuoteDto, existingQuote);
-            _unitOfWork.Repository<Quote>().Update(existingQuote);
-            await _unitOfWork.Complete();
-
-            var mappedTweet = _mapper.Map<GetQuoteDto>(existingQuote);
-            return new ResponseDto
-            {
-                IsSucceeded = true,
-                Status = 200,
-                Message = "Quote updated successfully"
-            };
-        }
 
         public async Task<ResponseDto> DeleteCommentAsync(int id)
         {

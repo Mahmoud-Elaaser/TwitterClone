@@ -13,7 +13,9 @@ namespace TwitterClone.Service.Services.Interfaces
         Task<ResponseDto> UpdateRoleAsync(RoleDto updateRoleDto);
         Task<ResponseDto> ChangePasswordAsync(ChangePasswordDto changePasswordDto);
         Task<TokenDto> GenerateJwtTokenAsync(User user);
-        Task<string> GeneratePasswordResetTokenAsync(string email);
         Task SignOutAsync();
+
+        Task<ResponseDto> ForegotPassword(ForgotPasswordDto dto);
+        Task<ResponseDto> RessetPassword(ResetPasswordDto dto);
     }
 }

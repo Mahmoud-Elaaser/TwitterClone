@@ -26,41 +26,10 @@ namespace TwitterClone.Api.Controllers
             return Ok(response.Models);
         }
 
-        [HttpPost("follow")]
-        public async Task<IActionResult> SendFollowNotification(int senderId, int receiverId)
-        {
-            var response = await _notificationService.SendFollowNotificationAsync(senderId, receiverId);
-            if (!response.IsSucceeded)
-            {
-                return BadRequest(new ApiResponse(response.Status, response.Message));
-            }
-            return Ok(response.Model);
-        }
 
-        [HttpPost("comment")]
-        public async Task<IActionResult> SendCommentNotification(int senderId, int tweetId)
-        {
-            var response = await _notificationService.SendCommentNotificationAsync(senderId, tweetId);
-            if (!response.IsSucceeded)
-            {
-                return BadRequest(new ApiResponse(response.Status, response.Message));
-            }
-            return Ok(response.Model);
-        }
-
-        [HttpPost("like")]
-        public async Task<IActionResult> SendLikeNotification(int senderId, int tweetId)
-        {
-            var response = await _notificationService.SendLikeNotificationAsync(senderId, tweetId);
-            if (!response.IsSucceeded)
-            {
-                return BadRequest(new ApiResponse(response.Status, response.Message));
-            }
-            return Ok(response.Model);
-        }
 
         [HttpGet("{userId}")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetUserNotifications(int userId)
         {
             var response = await _notificationService.GetUserNotificationsAsync(userId);
@@ -84,79 +53,46 @@ namespace TwitterClone.Api.Controllers
             return Ok(response.Message);
         }
 
+        [HttpPatch("mark-as-read")]
+        public async Task<IActionResult> MarkNotificationAsRead([FromQuery] int notificationId)
+        {
+            var response = await _notificationService.MarkAsReadAsync(notificationId);
+
+            if (!response.IsSucceeded)
+            {
+                return BadRequest(new ApiResponse(response.Status, response.Message));
+            }
+
+            return Ok(response.Message);
+        }
+
+        [HttpDelete("delete-notification")]
+        public async Task<IActionResult> DeleteNotification([FromQuery] int notificationId)
+        {
+            var response = await _notificationService.DeleteNotificationById(notificationId);
+
+            if (!response.IsSucceeded)
+            {
+                return BadRequest(new ApiResponse(response.Status, response.Message));
+            }
+
+            return Ok(response.Message);
+        }
+
+        [HttpGet("unread-notifications")]
+        public async Task<IActionResult> GetUnreadNotifications(int userId)
+        {
+            var response = await _notificationService.GetUnreadNotifications(userId);
+
+            if (!response.IsSucceeded)
+            {
+                return BadRequest(new ApiResponse(response.Status, response.Message));
+            }
+
+            return Ok(response.Models);
+        }
+
+
     }
 
 }
-
-
-/*
-    [ApiController]
-    [Route("api/[controller]")]
-    [Authorize]
-    public class NotificationsController : ControllerBase
-    {
-        private readonly INotificationService _notificationService;
-
-        public NotificationsController(INotificationService notificationService)
-        {
-            _notificationService = notificationService;
-        }
-
-        [HttpGet]
-        [Route("unread")]
-        public async Task<IActionResult> GetUnreadNotifications()
-        {
-            int userId = GetCurrentUserId();
-            var notifications = await _notificationService.GetNotificationsForUserAsync(userId);
-            return Ok(notifications);
-        }
-
-        [HttpPatch("{notificationId}/mark-as-read")]
-        public async Task<IActionResult> MarkNotificationAsRead(int notificationId)
-        {
-            await _notificationService.MarkAsReadAsync(notificationId);
-            return NoContent();
-        }
-
-        [HttpPatch("mark-all-as-read")]
-        public async Task<IActionResult> MarkAllAsRead()
-        {
-            int userId = GetCurrentUserId();
-            await _notificationService.MarkAsReadAsync(userId);
-            return NoContent();
-        }
-
-
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> GetAllNotifications()
-        {
-            int userId = GetCurrentUserId();
-            var notifications = await _notificationService.GetNotificationsForUserAsync(userId);
-            return Ok(notifications);
-        }
-
-        [HttpDelete("{notificationId}")]
-        public async Task<IActionResult> DeleteNotification(int notificationId)
-        {
-            await _notificationService.DeleteNotificationAsync(notificationId);
-            return NoContent();
-        }
-
-
-
-        [HttpDelete("delete-all")]
-        public async Task<IActionResult> DeleteAllNotifications()
-        {
-            int userId = GetCurrentUserId();
-            await _notificationService.DeleteAllNotificationsForUserAsync(userId);
-            return NoContent();
-        }
-
-
-        private int GetCurrentUserId()
-        {
-            return int.Parse(User.FindFirst("Id")?.Value);
-        }
-    }
-    */

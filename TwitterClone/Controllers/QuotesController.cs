@@ -19,6 +19,7 @@ namespace TwitterClone.Api.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<GetQuoteDto>>> GetAllQuotes()
         {
             var response = await _quoteService.GetAllQuotesAsync();
@@ -41,7 +42,7 @@ namespace TwitterClone.Api.Controllers
             return Ok(response.Model);
         }
 
-        [HttpPost]
+        [HttpPost("add-quote")]
         public async Task<IActionResult> AddQuote([FromBody] CreateOrUpdateQuoteDto createQuoteDto)
         {
             var response = await _quoteService.AddQuoteAsync(createQuoteDto);

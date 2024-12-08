@@ -180,6 +180,72 @@ namespace TwitterClone.Service.Services.Implementations
                 Message = "All notifications have been marked as read."
             };
         }
+
+        public async Task<ResponseDto> MarkAsReadAsync(int notificationId)
+        {
+
+            var notification = await _unitOfWork.Repository<Notification>()
+                .FindAsync(n => n.Id == notificationId);
+            if (notification == null)
+            {
+                return new ResponseDto
+                {
+                    IsSucceeded = false,
+                    Status = 404,
+                    Message = "Notification not found"
+                };
+            }
+
+            notification.IsRead = true;
+            _unitOfWork.Repository<Notification>().Update(notification);
+            await _unitOfWork.Complete();
+
+            return new ResponseDto
+            {
+                IsSucceeded = true,
+                Status = 200,
+                Message = "Notification marked as read successfully"
+            };
+        }
+
+        public async Task<ResponseDto> GetUnreadNotifications(int userId)
+        {
+            var unreadNotifications = await _unitOfWork.Repository<Notification>()
+                .GetAllPredicated(n => n.Id == userId && !n.IsRead);
+
+            return new ResponseDto
+            {
+                IsSucceeded = true,
+                Status = 200,
+                Models = unreadNotifications
+            };
+        }
+        public async Task<ResponseDto> DeleteNotificationById(int notificationId)
+        {
+            var notification = await _unitOfWork.Repository<Notification>()
+                .GetByIdAsync(notificationId);
+
+            if (notification == null)
+            {
+                return new ResponseDto
+                {
+                    IsSucceeded = false,
+                    Status = 404,
+                    Message = "Notification not found"
+                };
+            }
+
+            _unitOfWork.Repository<Notification>().Delete(notification);
+            await _unitOfWork.Complete();
+
+            return new ResponseDto
+            {
+                IsSucceeded = true,
+                Status = 200,
+                Message = "Notification deleted successfully"
+            };
+        }
+
     }
 
 }

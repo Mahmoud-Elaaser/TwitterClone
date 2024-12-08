@@ -18,7 +18,7 @@ namespace TwitterClone.Api.Controllers
             _retweetService = retweetService;
         }
 
-        [HttpPost("add")]
+        [HttpPost("retweet-tweet")]
         public async Task<IActionResult> AddRetweetAsync([FromBody] AddRetweetRequest request)
         {
             var response = await _retweetService.AddRetweetAsync(request.UserId, request.TweetId);

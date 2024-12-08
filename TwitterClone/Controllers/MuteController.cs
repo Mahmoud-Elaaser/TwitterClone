@@ -41,7 +41,7 @@ namespace TwitterClone.Api.Controllers
             return Ok("User unmuted successfully.");
         }
 
-        [HttpGet("{mutedUserId}/is-muted")]
+        [HttpGet("{mutedUserId}/isMuted")]
         public async Task<IActionResult> IsUserMuted(int mutedUserId)
         {
             var mutedById = GetCurrentUserId();
