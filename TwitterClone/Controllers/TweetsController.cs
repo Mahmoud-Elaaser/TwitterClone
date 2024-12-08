@@ -21,6 +21,7 @@ namespace TwitterClone.Api.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<GetTweetDto>>> GetAllTweets()
         {
             var response = await _tweetService.GetAllTweetsAsync();
@@ -54,7 +55,7 @@ namespace TwitterClone.Api.Controllers
             return Ok(response.Models);
         }
 
-        [HttpPost]
+        [HttpPost("create-tweet")]
         public async Task<IActionResult> CreateTweet([FromBody] CreateOrUpdateTweetDto createTweetDto)
         {
             var response = await _tweetService.AddTweetAsync(createTweetDto);

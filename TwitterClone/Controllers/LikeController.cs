@@ -18,7 +18,7 @@ namespace TwitterClone.Api.Controllers
             _likeService = likeService;
         }
 
-        [HttpPost("add")]
+        [HttpPost("add-like")]
         public async Task<IActionResult> AddLike(CreateLikeDto dto)
         {
             var result = await _likeService.AddLikeAsync(dto);
@@ -37,7 +37,7 @@ namespace TwitterClone.Api.Controllers
             return Ok(result.Message);
         }
 
-        [HttpDelete("remove")]
+        [HttpDelete("remove-like")]
         public async Task<IActionResult> RemoveLike(int tweetId, int userId)
         {
             var result = await _likeService.RemoveLikeAsync(tweetId, userId);
@@ -56,7 +56,7 @@ namespace TwitterClone.Api.Controllers
             return Ok(result.Message);
         }
 
-        [HttpGet("count")]
+        [HttpGet("count-likes")]
         public async Task<IActionResult> CountLikes(int tweetId)
         {
             var count = await _likeService.CountLikesAsync(tweetId);
@@ -70,7 +70,7 @@ namespace TwitterClone.Api.Controllers
             return Ok(new { TweetId = tweetId, IsLiked = isLiked });
         }
 
-        [HttpGet("users")]
+        [HttpGet("get-who-liked-a-tweet")]
         public async Task<IActionResult> GetUsersWhoLikedTweet(int tweetId)
         {
             var users = await _likeService.GetUsersWhoLikedTweetAsync(tweetId);
@@ -89,7 +89,7 @@ namespace TwitterClone.Api.Controllers
             return Ok(users);
         }
 
-        [HttpGet("likedTweets")]
+        [HttpGet("liked-tweets-by-user")]
         public async Task<IActionResult> GetLikedTweets(int userId)
         {
             var likedTweets = await _likeService.GetLikedTweetsAsync(userId);
@@ -108,7 +108,7 @@ namespace TwitterClone.Api.Controllers
             return Ok(likedTweets);
         }
 
-        [HttpGet("All-likes-on-a-tweet")]
+        [HttpGet("all-likes-on-a-tweet")]
         public async Task<ActionResult<IEnumerable<GetLikeDto>>> GetAllLikesOnTweet(int tweetId)
         {
             var response = await _likeService.GetAllLikesOnTweetAsync(tweetId);

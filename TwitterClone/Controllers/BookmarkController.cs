@@ -18,8 +18,8 @@ namespace TwitterClone.Api.Controllers
             _bookmarkService = bookmarkService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddBookmark(CreateBookmarkDto createBookmarkDto)
+        [HttpPost("add-bookmark")]
+        public async Task<IActionResult> AddBookmark([FromBody] CreateBookmarkDto createBookmarkDto)
         {
             var response = await _bookmarkService.AddBookmarkAsync(createBookmarkDto);
             if (!response.IsSucceeded)
@@ -55,16 +55,15 @@ namespace TwitterClone.Api.Controllers
         [HttpGet("tweet/{tweetId}/count")]
         public async Task<IActionResult> CountBookmarksOfTweet(int tweetId)
         {
-            int cntr = await _bookmarkService.CountBookmarksOfTweetAsync(tweetId);
-            return Ok(cntr);
+            int count = await _bookmarkService.CountBookmarksOfTweetAsync(tweetId);
+            return Ok(count);
         }
 
-        [HttpGet("user/{userId}/tweet/{tweetId}")]
+        [HttpGet("user/{userId}/tweet/{tweetId}/isBookmarked")]
         public async Task<IActionResult> IsBookmarked(int userId, int tweetId)
         {
             bool isBookmarked = await _bookmarkService.IsBookmarkedAsync(userId, tweetId);
             return Ok(isBookmarked);
         }
     }
-
 }

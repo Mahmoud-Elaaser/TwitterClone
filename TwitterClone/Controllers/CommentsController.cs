@@ -19,6 +19,7 @@ namespace TwitterClone.Api.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<GetCommentDto>> Getallcomments()
         {
             var response = await _commentService.GetAllCommentsAsync();
@@ -35,7 +36,7 @@ namespace TwitterClone.Api.Controllers
             }
             return Ok(response.Model);
         }
-        [HttpPost]
+        [HttpPost("add-comment")]
         public async Task<IActionResult> AddComment([FromBody] CreateOrUpdateCommentDto dto)
         {
             var response = await _commentService.AddCommentAsync(dto);
