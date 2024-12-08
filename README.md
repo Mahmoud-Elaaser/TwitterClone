@@ -10,7 +10,7 @@ Twitter Clone API is a backend application built using **ASP.NET Core** that rep
 - **User Registration**: Users can register with their email and username.
 - **Authentication**: Secure **JWT**-based authentication.
 - **Role-Based Access Control**: Supports **Admin** and **User** roles for managing permissions.
-- **Password Management**: Change password functionality.
+- **Password Management**: Change password, forgot password, and reset password via email services.
 - **User Profiles**: Update bio, email, and profile picture.
 
 ### Post Management
@@ -109,7 +109,7 @@ Make sure you have the following installed:
 
 Here is a full screenshot of the project:
 
-![Screenshot](https://github.com/Mahmoud-Elaaser/TwitterClone/blob/master/TwitterClone.png)
+![Screenshot](https://github.com/Mahmoud-Elaaser/TwitterClone/blob/master/TwitterCloneAPI.png)
    
    
  
